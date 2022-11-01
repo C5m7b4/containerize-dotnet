@@ -1,0 +1,10 @@
+http://dotnetplaybook.com/
+
+https://github.com/binarythistle
+
+dotnet --version
+
+dotnet new webapi -n Platformservice
+
+code -r Platformservice
+
