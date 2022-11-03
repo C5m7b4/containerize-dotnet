@@ -245,3 +245,94 @@ if everything is foobar you can always run
 kbectl delete deployment platforms-depl
 ```
 
+## branch 2
+
+Ok, so, here is where we are so far, but we need more pieces to really make this work:
+
+![alt archicture](images/architecture_01.png)
+
+This is where we are going to go next:
+
+![alt next](images/04-next-architecture.png)
+
+need to check out ampq - advanced messaging and queueing protocol
+
+our rabbitmq yaml file looks like this:
+
+```js
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq-depl
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      containers:
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports:
+            - containerPort: 15672
+              name: rbmq-mgmt-port
+            - containerPort: 5672
+              name: rbmq-msg-port
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: rabbitmq
+  ports:
+  - name: rbmq-mgmt-port
+    protocol: TCP
+    port: 15672
+    targetPort: 15672   
+  - name: rbmq-msg-port
+    protocol: TCP
+    port: 5672
+    targetPort: 5672
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rabbitmq-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    app: rabbitmq
+  ports:
+  -  name: rbmq-mgmt-port
+     protocol: TCP
+     port: 15672
+     targetPort: 15672   
+  -  name: rbmq-msg-port
+     protocol: TCP
+     port: 5672
+     targetPort: 5672       
+```
+
+now we can spin that up
+
+```js
+kubectl apply -f rabbitmq-depl.yaml
+```
+
+then we can go to a browser and put in this address: http://localhost:15672/
+
+to login just use guest and guest as the username and password respectively
+
+![alt rabbit-login](images/05-rabbit-login.png)
+
+and here is our rabbit dashboard
+
+![alt rabbit-dashboard](images/06-rabbit-dashboard.png)
+
