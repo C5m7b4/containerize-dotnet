@@ -63,3 +63,4 @@ D:\microservices\.net\Platformservice\obj\Debug\net6.0\refint\Platformservice.dl
 D:\microservices\.net\Platformservice\obj\Debug\net6.0\Platformservice.pdb
 D:\microservices\.net\Platformservice\obj\Debug\net6.0\Platformservice.genruntimeconfig.cache
 D:\microservices\.net\Platformservice\obj\Debug\net6.0\ref\Platformservice.dll
+D:\microservices\.net\Platformservice\bin\Debug\net6.0\RabbitMQ.Client.dll

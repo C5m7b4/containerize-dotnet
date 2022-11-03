@@ -336,3 +336,16 @@ and here is our rabbit dashboard
 
 ![alt rabbit-dashboard](images/06-rabbit-dashboard.png)
 
+## branch 3
+
+now it time to publish some events to rabbitmq
+
+open up the Platforms project and install these dependencies
+
+```js
+dotnet add package RabbitMQ.Client
+```
+
+
+next up we added out MessageBusClient and ran our tests with insomnia
+
